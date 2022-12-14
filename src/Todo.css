@@ -51,6 +51,14 @@
     color:beige
 }
 
+.updatebtn{
+    background-color: #c4fc1d;
+    height: 5vh;
+    width: 3vw;
+    border-radius:5px ;
+    color:rgb(48, 48, 18)
+}
+
 .sndbtn{
     background-color:#41259c ;
     height: 5vh;
