@@ -63,7 +63,7 @@ export function Todo() {
         </form>
         {todoList.map((value, index) => {
           return (
-            <div className="task-input2">
+            <div className="task-input2" key={index}>
               {todoListFlag[index] ? (
                 <input
                   type="text"
