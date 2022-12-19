@@ -1,12 +1,16 @@
 import "./TodoNew.css";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
-import { InputGroup, Button, ListGroup } from "react-bootstrap";
+import { InputGroup, Button, ListGroup, Modal, Alert } from "react-bootstrap";
 export function TodoNew() {
   const [todoList, setTodoList] = useState([]);
   const [todoListFlag, setTodoListFlag] = useState([]);
   const [inp, setInp] = useState("");
   const [editField, updateEditField] = useState("");
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   function toggle(index) {
     const arr = todoListFlag;
     arr.splice(index, 1, !arr[index]);
@@ -25,7 +29,7 @@ export function TodoNew() {
 
     const arr = todoList;
     if (arr.includes(inp)) {
-      alert("Entered value already exists! Please enter a new value!");
+      handleShow();
       setInp("");
       return false;
     }
@@ -42,7 +46,7 @@ export function TodoNew() {
   };
   return (
     <div className="container1">
-      <div >
+      <div>
         <h1>Todo-List</h1>
         <Form onSubmit={add}>
           <InputGroup className="mb-3">
@@ -62,76 +66,91 @@ export function TodoNew() {
           </InputGroup>
         </Form>
         <div className="listDropDown">
-        <ListGroup>
-          {todoList.map((value, index) => {
-            return (
-              <ListGroup.Item key={index} >
-                {todoListFlag[index] ? (
-                  <InputGroup>
-                    <Form.Control
-                      type="text"
-                      value={value}
-                      onChange={(event) => {
-                        updateEditField(event.target.value);
-                      }}
-                      placeholder=" "
-                      aria-label="Recipient's username with two button addons"
-                      disabled
-                    />
-                    <Button
-                      variant="outline-success"
-                      onClick={() => {
-                        toggle(index);
-                        updateEditField(todoList[index]);
-                      }}
-                    >
-                      Edit Btn
-                    </Button>
-                    <Button
-                      variant="outline-danger"
-                      onClick={() => {
-                        deleteList(index);
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </InputGroup>
-                ) : (
-                  <InputGroup>
-                    <Form.Control
-                      type="text"
-                      value={editField}
-                      onChange={(event) => {
-                        updateEditField(event.target.value);
-                      }}
-                      placeholder=" "
-                      aria-label="Recipient's username with two button addons"
-                    />
-                    <Button
-                      variant="outline-secondary"
-                      onClick={() => {
-                        update(index);
-                      }}
-                    >
-                      Update
-                    </Button>
-                    <Button
-                      variant="outline-secondary"
-                      onClick={() => {
-                        toggle(index);
-                        updateEditField("");
-                      }}
-                    >
-                      Cancel
-                    </Button>
-                  </InputGroup>
-                )}
-              </ListGroup.Item>
-            );
-          })}
-        </ListGroup>
+          <ListGroup>
+            {todoList.map((value, index) => {
+              return (
+                <ListGroup.Item key={index}>
+                  {todoListFlag[index] ? (
+                    <InputGroup>
+                      <Form.Control
+                        type="text"
+                        value={value}
+                        onChange={(event) => {
+                          updateEditField(event.target.value);
+                        }}
+                        placeholder=" "
+                        aria-label="Recipient's username with two button addons"
+                        disabled
+                      />
+                      <Button
+                        variant="outline-success"
+                        onClick={() => {
+                          toggle(index);
+                          updateEditField(todoList[index]);
+                        }}
+                      >
+                        Edit_todo
+                      </Button>
+                      <Button
+                        variant="outline-danger"
+                        onClick={() => {
+                          deleteList(index);
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </InputGroup>
+                  ) : (
+                    <InputGroup>
+                      <Form.Control
+                        type="text"
+                        value={editField}
+                        onChange={(event) => {
+                          updateEditField(event.target.value);
+                        }}
+                        placeholder=" "
+                        aria-label="Recipient's username with two button addons"
+                      />
+                      <Button
+                        variant="outline-secondary"
+                        onClick={() => {
+                          update(index);
+                        }}
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        variant="outline-warning"
+                        onClick={() => {
+                          toggle(index);
+                          updateEditField("");
+                        }}
+                      >
+                        Cancel
+                      </Button>
+                    </InputGroup>
+                  )}
+                </ListGroup.Item>
+              );
+            })}
+          </ListGroup>
         </div>
       </div>
+      <Modal size="sm" show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Duplicate Value</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Alert key="modal_key" variant="danger">
+            Entered value already exists! Please enter a new value!
+          </Alert>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
