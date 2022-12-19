@@ -1,10 +1,12 @@
-import {Todo} from "./Todo.js";
+// import {Todo} from "./Todo.js";
+import {TodoNew} from "./TodoNew";
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Todo/>
+      {/* <Todo/> */}
+      <TodoNew/>
     </div>
   );
 }

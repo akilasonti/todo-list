@@ -1,0 +1,13 @@
+.container1{
+    display: flex;
+    justify-content: center;
+    margin-top: 8rem;
+}
+.listDropDown{
+    height: 300px;
+    overflow-x: hidden;
+    overflow-x: scroll;
+}
+.listDropDown::-webkit-scrollbar {
+    display: none;
+  }
