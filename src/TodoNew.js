@@ -33,8 +33,8 @@ export function TodoNew() {
       setInp("");
       return false;
     }
-    arr.push(inp);
-    todoListFlag.push(true);
+    arr.unshift(inp);
+    todoListFlag.unshift(true);
     setTodoList([...arr]);
     setInp("");
   };
